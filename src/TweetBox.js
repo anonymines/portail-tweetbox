@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap'; // equivalent : import Card from 'react-bootstrap/Card'
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap'; // could be synthetize in : import { Card, Form, Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 
 class TweetBox extends React.Component {
     constructor(props) {
@@ -23,14 +24,27 @@ class TweetBox extends React.Component {
         // console.log(e.target.value);
     };
 
+    getRemainingChars = () => {
+        return 280 - this.state.text.length;
+    };
+
+    renderOverflowAlert = () => {
+        return (this.getRemainingChars() < 0) ? (
+            <Alert variant="warning" className="text-left">
+                <strong>Oops! Too long:</strong>
+            </Alert>
+        ) : '';
+    };
+
     render() {
        return (
         // now you can use the updated state here
         <Card className="bg-light">
             <Card.Body className="text-right">
+                { this.renderOverflowAlert() }
                 <Form.Control as="textarea" rows={3} onChange={ this.handleChange }/> {/* we use curly brackets to include JS inside HTML syntax part of JSX */}
                 <br />
-                <span className="mx-3 secondary">{ 280 - this.state.text.length }</span>
+                <span className="mx-3 secondary">{ this.getRemainingChars() }</span>
                 <Button variant="primary" disabled={ this.state.text.length === 0 }>Tweet</Button>
             </Card.Body>
 
