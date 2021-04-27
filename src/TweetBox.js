@@ -27,9 +27,10 @@ class TweetBox extends React.Component {
        return (
         // now you can use the updated state here
         <Card className="bg-light">
-           <Card.Body className="text-right">
+            <Card.Body className="text-right">
                 <Form.Control as="textarea" rows={3} onChange={ this.handleChange }/> {/* we use curly brackets to include JS inside HTML syntax part of JSX */}
                 <br />
+                <span className="mx-3 secondary">{ 280 - this.state.text.length }</span>
                 <Button variant="primary" disabled={ this.state.text.length === 0 }>Tweet</Button>
             </Card.Body>
 
