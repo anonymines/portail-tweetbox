@@ -48,7 +48,7 @@ class TweetBox extends React.Component {
                 <Form.Control as="textarea" rows={3} onChange={ this.handleChange }/> {/* we use curly brackets to include JS inside HTML syntax part of JSX */}
                 <br />
                 <span className="mx-3 secondary">{ this.getRemainingChars() }</span>
-                <Button variant="primary" disabled={ this.state.text.length === 0 }>Tweet</Button>
+                <Button variant="primary" disabled={ this.getRemainingChars() === 280 || this.getRemainingChars() < 0 }>Tweet</Button>
             </Card.Body>
 
             { /* this.state.text */ }
