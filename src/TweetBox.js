@@ -32,6 +32,9 @@ class TweetBox extends React.Component {
         return (this.getRemainingChars() < 0) ? (
             <Alert variant="warning" className="text-left">
                 <strong>Oops! Too long:</strong>
+                &nbsp; &#8230;
+                { this.state.text.substring(280 - 10, 280) }
+                <strong className="bg-danger text-light">{ this.state.text.substring(280) }</strong>
             </Alert>
         ) : '';
     };
