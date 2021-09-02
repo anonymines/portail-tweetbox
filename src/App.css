@@ -1,0 +1,12 @@
+.App {
+    padding: 30px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 20px 0;
+}

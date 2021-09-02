@@ -50,20 +50,43 @@ class TweetBox extends React.Component {
         ) : '';
     };
 
+    refreshTweetList = () => {
+
+    }
+
+    sendTweet = () => {
+        const url = "http://localhost:8000/tweet";
+
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+        fetch(url, {
+            method: 'POST',
+            headers: myHeaders,
+            body: "username=" + this.state.username + "&tweet=" + this.state.text
+        }).then(() => {
+            console.log("Tweet sent!");
+        });
+    }
+
     render() {
        return (
         // now you can use the updated state here
         <Card className="bg-light">
             <Card.Body className="text-right">
-                <Form>
-                    <Form.Control type="text" onChange={ this.handleUsernameChange } placeholder="Nom d'utilisateur"/>
-                    <br/>
-                    { this.renderOverflowAlert() }
-                    <Form.Control as="textarea" rows={3} onChange={ this.handleContentChange }/> {/* we use curly brackets to include JS inside HTML syntax part of JSX */}
-                    <br />
-                    <span className="mx-3 secondary">{ this.getRemainingChars() }</span>
-                    <Button variant="primary" disabled={ this.getRemainingChars() === 280 || this.getRemainingChars() < 0 || !this.state.username.length }>Tweet</Button>
-                </Form>
+                <Form.Control type="text" onChange={ this.handleUsernameChange } placeholder="Nom d'utilisateur"/>
+                <br/>
+                { this.renderOverflowAlert() }
+                <Form.Control as="textarea" rows={3} onChange={ this.handleContentChange }/> {/* we use curly brackets to include JS inside HTML syntax part of JSX */}
+                <br />
+                <span className="mx-3 secondary">{ this.getRemainingChars() }</span>
+                <Button
+                    variant="primary"
+                    disabled={ this.getRemainingChars() === 280 || this.getRemainingChars() < 0 || !this.state.username.length }
+                    onClick={ this.sendTweet }
+                >
+                        Tweet
+                </Button>
             </Card.Body>
 
             { /* this.state.text */ }
