@@ -10,17 +10,28 @@ class TweetBox extends React.Component {
 
         // initialization of the "state object"
         this.state = {
-            text: '',
+            username: '',
+            text: ''
         };
     }
 
-    handleChange = (e) => {
+    handleUsernameChange = (e) => {
+        this.setState({
+            ...this.state,
+            username: e.target.value
+        });
+    }
+
+    handleContentChange = (e) => {
         // in React, you never modify the DOM directly
         // instead, in an event handler, oyu modify something called the "component state"
         // then, every time the state is updated, render() is called again
         // and inside render(), you can access the state to tell React how you want the DOM to be modified
 
-        this.setState({ text: e.target.value });
+        this.setState({
+            ...this.state,
+            text: e.target.value
+        });
         // console.log(e.target.value);
     };
 
@@ -44,11 +55,15 @@ class TweetBox extends React.Component {
         // now you can use the updated state here
         <Card className="bg-light">
             <Card.Body className="text-right">
-                { this.renderOverflowAlert() }
-                <Form.Control as="textarea" rows={3} onChange={ this.handleChange }/> {/* we use curly brackets to include JS inside HTML syntax part of JSX */}
-                <br />
-                <span className="mx-3 secondary">{ this.getRemainingChars() }</span>
-                <Button variant="primary" disabled={ this.getRemainingChars() === 280 || this.getRemainingChars() < 0 }>Tweet</Button>
+                <Form>
+                    <Form.Control type="text" onChange={ this.handleUsernameChange } placeholder="Nom d'utilisateur"/>
+                    <br/>
+                    { this.renderOverflowAlert() }
+                    <Form.Control as="textarea" rows={3} onChange={ this.handleContentChange }/> {/* we use curly brackets to include JS inside HTML syntax part of JSX */}
+                    <br />
+                    <span className="mx-3 secondary">{ this.getRemainingChars() }</span>
+                    <Button variant="primary" disabled={ this.getRemainingChars() === 280 || this.getRemainingChars() < 0 || !this.state.username.length }>Tweet</Button>
+                </Form>
             </Card.Body>
 
             { /* this.state.text */ }
